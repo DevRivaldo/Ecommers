@@ -1,19 +1,22 @@
 package com.registro.usuarios.controlador;
 
-// src/main/java/com/example/ecommerce/controller/CelularController.java
-
-
 import com.registro.usuarios.modelo.Celular;
 import com.registro.usuarios.servicio.CelularService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
-
-
 @RestController
-@RequestMapping("/api/celulares")
+@RequestMapping("/celular-form")
 public class CelularController {
 
     @Autowired
@@ -25,22 +28,24 @@ public class CelularController {
     }
 
     @GetMapping("/{id}")
-    public Celular getCelularById(@PathVariable Long id) {
+    public Celular getCelularById(@PathVariable int id) {
         return celularService.getCelularById(id);
     }
 
     @PostMapping
     public Celular createCelular(@RequestBody Celular celular) {
-        return celularService.saveCelular(celular);
+        return celularService.createOrUpdateCelular(celular);
     }
 
     @PutMapping("/{id}")
-    public Celular updateCelular(@PathVariable Long id, @RequestBody Celular celular) {
-        return celularService.updateCelular(id, celular);
+    public Celular updateCelular(@PathVariable int id, @RequestBody Celular celular) {
+        celular.setId(id);
+        return celularService.createOrUpdateCelular(celular);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCelular(@PathVariable Long id) {
+    public void deleteCelular(@PathVariable int id) {
         celularService.deleteCelular(id);
     }
+
 }

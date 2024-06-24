@@ -1,21 +1,18 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda Online</title>
+    <title>Audífonos</title>
     <!-- Bootstrap 4.5.2 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Popper JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Inline CSS -->
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
         }
         .container {
             margin-top: 20px;
@@ -35,119 +32,89 @@
         }
     </style>
 </head>
-<body class="main-layout" style="height: 10vh;">
+<body>
 <header>
-    <!-- Nav bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">
-                <img src="static/img/logo.png" alt="#" th:src="@{/img/logo.png}">
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/celulares}">Celulares</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/laptops}">Laptops</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/audifonos}">Audífonos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:if="${session.loggedInUser == null}" th:href="@{/login}">Iniciar Sesión</a>
-                        <a class="nav-link" th:if="${session.loggedInUser != null}" th:href="@{/logout}">Cerrar Sesión</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/registro}">Registrarse</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/principal}">Principal</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <img src="static/img/user.png" alt="Cuenta de usuario" th:src="@{/img/user.png}" style="width: 30px; height: 30px; border-radius: 50%;">
-                        </a>
-                    </li>
-                </ul>
+    <!-- Navbar -->
+    <header>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <img src="static/img/logo.png" alt="Logo" th:src="@{/img/logo.png}">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/celulares}">Celulares</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/laptops}">Laptops</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/audifonos}">Audífonos</a>
+                        </li>
+                        <li class="nav-item" th:if="${session.loggedInUser == null}">
+                            <a class="nav-link" th:href="@{/login}">Iniciar Sesión</a>
+                        </li>
+                        <li class="nav-item" th:if="${session.loggedInUser != null}">
+                            <a class="nav-link" th:href="@{/logout}">Cerrar Sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/carrito}">
+                                <i class="fas fa-shopping-cart"></i> Carrito
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-    <!-- End Nav bar -->
+        </nav>
+        <!-- End Navbar -->
+    </header>
+    <!-- End Navbar -->
 </header>
+
 <div class="container">
-    <h2 class="text-center">Productos</h2>
+    <h2 class="my-4">Audífonos Disponibles</h2>
+
+    <a href="/audifonos/new" class="btn btn-primary mb-3">Crear Nuevo Audífono</a>
+
     <div class="row">
-        <!-- Producto 1 -->
-        <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img src="static/img/audifonos1.jpg" class="card-img-top" alt="Audífono 1">
+        <!-- Repetir para cada audífono -->
+        <div class="col-md-4 mb-4" th:each="audifono : ${audifonos}">
+            <div class="card shadow-sm">
+                <img th:src="@{'/img/default-headphones.jpg'}" class="card-img-top" alt="Imagen Audífono">
                 <div class="card-body">
-                    <h5 class="card-title">Audífono 1</h5>
-                    <p class="card-text">Descripción del audífono 1.</p>
+                    <h5 class="card-title" th:text="${audifono.nombre}">Nombre Audífono</h5>
+                    <p class="card-text" th:text="${audifono.descripcion}">Descripción del audífono</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                            <a href="#" class="btn btn-sm btn-outline-secondary">Ver</a>
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Agregar al carrito</button>
+                            <a th:href="@{'/audifonos/' + ${audifono.id}}" class="btn btn-sm btn-outline-info"><i class="fas fa-eye"></i> Ver Detalles</a>
+                            <a th:href="@{'/audifonos/edit/' + ${audifono.id}}" class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i> Editar</a>
+                            <a th:href="@{'/audifonos/delete/' + ${audifono.id}}" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                            <a th:href="@{'/audifonos/agregarCarrito/' + ${audifono.id}}" class="btn btn-sm btn-outline-success"><i class="fas fa-shopping-cart"></i> Agregar al carrito</a>
                         </div>
-                        <small class="text-muted">$50.00</small>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center mt-2">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Editar</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Actualizar</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Eliminar</button>
+                        <span class="text-muted" th:text="${'$' + audifono.precio}">Precio</span>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Producto 2 -->
-        <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img src="static/img/audifonos2.jpg" class="card-img-top" alt="Audífono 2">
-                <div class="card-body">
-                    <h5 class="card-title">Audífono 2</h5>
-                    <p class="card-text">Descripción del audífono 2.</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                            <a href="#" class="btn btn-sm btn-outline-secondary">Ver</a>
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Agregar al carrito</button>
-                        </div>
-                        <small class="text-muted">$75.00</small>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center mt-2">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Editar</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Actualizar</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Eliminar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Producto 3 -->
-        <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img src="static/img/audifonos3.jpg" class="card-img-top" alt="Audífono 3">
-                <div class="card-body">
-                    <h5 class="card-title">Audífono 3</h5>
-                    <p class="card-text">Descripción del audífono 3.</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                            <a href="#" class="btn btn-sm btn-outline-secondary">Ver</a>
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Agregar al carrito</button>
-                        </div>
-                        <small class="text-muted">$100.00</small>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center mt-2">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Editar</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Actualizar</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Eliminar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Fin del bloque repetido -->
     </div>
 </div>
+
+<!-- Bootstrap 4.5.2 JS, jQuery, Popper.js -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
+        integrity="sha384-F2DE2L6pgm0HQgKGylmXv8VQQcPfHi2DQm9YUDLsHhtM+2dS6uogFnay4z2lWJ1K"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh/j2nO+TLaPH6fkH6PU/iCwc1TA+UqU0JiSA"
+        crossorigin="anonymous"></script>
 </body>
 </html>

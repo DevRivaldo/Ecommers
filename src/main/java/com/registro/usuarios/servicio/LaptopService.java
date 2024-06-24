@@ -5,10 +5,12 @@ import com.registro.usuarios.repositorio.LaptopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 public class LaptopService {
+
     @Autowired
     private LaptopRepository laptopRepository;
 
@@ -16,19 +18,24 @@ public class LaptopService {
         return laptopRepository.findAll();
     }
 
-    public Laptop getLaptopById(Long id) {
+    public Laptop getLaptopById(int id) {
         return laptopRepository.findById(id).orElse(null);
     }
 
-    public Laptop saveLaptop(Laptop laptop) {
+    @Transactional
+    public Laptop createOrUpdateLaptop(Laptop laptop) {
         return laptopRepository.save(laptop);
     }
 
-    public void deleteLaptop(Long id) {
+    public void deleteLaptop(int id) {
         laptopRepository.deleteById(id);
     }
 
-    public Laptop updateLaptop(Long id, Laptop laptop) {
-        return null;
+    public Laptop findById(Long id) {
+        return laptopRepository.findById(Math.toIntExact(id)).orElse(null);
+    }
+
+    public Laptop findById(int id) {
+        return laptopRepository.findById(id).orElse(null);
     }
 }

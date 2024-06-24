@@ -1,15 +1,16 @@
 package com.registro.usuarios.servicio;
 
-
 import com.registro.usuarios.modelo.Celular;
 import com.registro.usuarios.repositorio.CelularRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 public class CelularService {
+
     @Autowired
     private CelularRepository celularRepository;
 
@@ -17,19 +18,24 @@ public class CelularService {
         return celularRepository.findAll();
     }
 
-    public Celular getCelularById(Long id) {
+    public Celular getCelularById(int id) {
         return celularRepository.findById(id).orElse(null);
     }
 
-    public Celular saveCelular(Celular celular) {
+    @Transactional
+    public Celular createOrUpdateCelular(Celular celular) {
         return celularRepository.save(celular);
     }
 
-    public void deleteCelular(Long id) {
+    public void deleteCelular(int id) {
         celularRepository.deleteById(id);
     }
 
-    public Celular updateCelular(Long id, Celular celular) {
-        return null;
+    public Celular findById(Long id) {
+        return celularRepository.findById(Math.toIntExact(id)).orElse(null);
+    }
+
+    public Celular findById(int id) {
+        return celularRepository.findById(id).orElse(null);
     }
 }

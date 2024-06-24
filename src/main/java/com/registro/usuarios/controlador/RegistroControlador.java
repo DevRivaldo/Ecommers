@@ -26,20 +26,6 @@ public class RegistroControlador {
 		return "index";
 	}
 
-	@GetMapping("/celulares")
-	public String celulares() {
-		return "celulares";
-	}
-
-	@GetMapping("/laptops")
-	public String laptops() {
-		return "laptops";
-	}
-
-	@GetMapping("/audifonos")
-	public String audifonos() {
-		return "audifonos";
-	}
 	private UsuarioServicio usuarioServicio;
 
 

@@ -4,21 +4,24 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "laptops")
-public class Laptop {
+@Table(name = "audifonos")
+public class Audifonos {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(nullable = false)
-    private String marca;
+    private String nombre;
 
     @Column(nullable = false)
-    private String modelo;
+    private String descripcion;
 
     @Column(nullable = false)
     private double precio;
+
+    @Column(nullable = false)
+    private String marca;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -47,20 +50,20 @@ public class Laptop {
         this.id = id;
     }
 
-    public String getMarca() {
-        return marca;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getModelo() {
-        return modelo;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public double getPrecio() {
@@ -69,6 +72,14 @@ public class Laptop {
 
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -87,3 +98,4 @@ public class Laptop {
         this.updatedAt = updatedAt;
     }
 }
+
