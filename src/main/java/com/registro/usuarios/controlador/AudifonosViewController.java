@@ -88,4 +88,12 @@ public class AudifonosViewController {
         }
         return "redirect:/audifonos";
     }
+
+    @GetMapping("/{id}")
+    public String getAudifonoDetalles(@PathVariable Long id, Model model) {
+        Audifonos audifono = audifonosService.findById(id);
+        model.addAttribute("audifono", audifono);
+        return "audifonos-detalles";
+    }
+
 }

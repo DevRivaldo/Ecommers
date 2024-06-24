@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Celular</title>
+    <!-- Bootstrap 4.5.2 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Inline CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa; /* Fondo general */
+            color: #343a40;
+        }
+        .details-section {
+            background-color: #00977f; /* Fondo para la sección de detalles */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+        .product-details h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ffffff; /* Color de texto para el encabezado */
+        }
+        .product-details p {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #ffffff; /* Color de texto para los detalles */
+        }
+        .product-details .btn-group a {
+            margin-top: 20px;
+        }
+        .product-image {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        .image-section {
+            background-color: #ffffff; /* Fondo para la sección de la imagen */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <!-- Columna para la imagen del celular -->
+        <div class="col-md-6 mb-4 mb-md-0">
+            <div class="image-section">
+                <img th:src="@{/images/{imagen}(imagen=${celular.imagenUrl})}" class="product-image" alt="Imagen del Celular">
+            </div>
+        </div>
+
+        <!-- Columna para los detalles del celular -->
+        <div class="col-md-6">
+            <div class="details-section product-details">
+                <h1 th:text="${celular.marca + ' ' + celular.modelo}">Marca y Modelo del Celular</h1>
+                <p><strong>Marca:</strong> <span th:text="${celular.marca}">Marca del Celular</span></p>
+                <p><strong>Modelo:</strong> <span th:text="${celular.modelo}">Modelo del Celular</span></p>
+                <p><strong>Precio:</strong> <span th:text="${#numbers.formatCurrency(celular.precio)}">Precio del Celular</span></p>
+                <div class="btn-group">
+                    <a th:href="@{/celulares}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Volver a la lista</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap and jQuery scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

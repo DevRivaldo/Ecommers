@@ -30,50 +30,58 @@
         .card-text {
             font-size: 14px;
         }
+        .price {
+            font-size: 18px;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
 <header>
     <!-- Navbar -->
-    <header>
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
-                <a class="navbar-brand" href="index.html">
-                    <img src="static/img/logo.png" alt="Logo" th:src="@{/img/logo.png}">
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/celulares}">Celulares</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/laptops}">Laptops</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/audifonos}">Audífonos</a>
-                        </li>
-                        <li class="nav-item" th:if="${session.loggedInUser == null}">
-                            <a class="nav-link" th:href="@{/login}">Iniciar Sesión</a>
-                        </li>
-                        <li class="nav-item" th:if="${session.loggedInUser != null}">
-                            <a class="nav-link" th:href="@{/logout}">Cerrar Sesión</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/carrito}">
-                                <i class="fas fa-shopping-cart"></i> Carrito
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/index}">
+                <img src="static/img/logo.png" alt="#" th:src="@{/img/logo.png}">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/celulares}">Celulares</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/laptops}">Laptops</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/audifonos}">Audífonos</a>
+                    </li>
+                    <li class="nav-item" th:if="${session.loggedInUser == null}">
+                        <a class="nav-link" th:href="@{/login}">Iniciar Sesión</a>
+                    </li>
+                    <li class="nav-item" th:if="${session.loggedInUser != null}">
+                        <a class="nav-link" th:href="@{/logout}">Cerrar Sesión</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/registro}">Registrarse</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/principal}">Principal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <img src="static/img/user.png" alt="Cuenta de usuario" th:src="@{/img/user.png}" style="width: 30px; height: 30px; border-radius: 50%;">
+                        </a>
+                    </li>
+                </ul>
             </div>
-        </nav>
-        <!-- End Navbar -->
-    </header>
+        </div>
+    </nav>
     <!-- End Navbar -->
 </header>
 
@@ -89,15 +97,15 @@
                 <img th:src="@{'/img/default-headphones.jpg'}" class="card-img-top" alt="Imagen Audífono">
                 <div class="card-body">
                     <h5 class="card-title" th:text="${audifono.nombre}">Nombre Audífono</h5>
+                    <span class="price" th:text="${'$' + audifono.precio}">Precio</span>
                     <p class="card-text" th:text="${audifono.descripcion}">Descripción del audífono</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                            <a th:href="@{'/audifonos/' + ${audifono.id}}" class="btn btn-sm btn-outline-info"><i class="fas fa-eye"></i> Ver Detalles</a>
+                            <a th:href="@{/audifonos/{id}(id=${audifono.id})}" class="btn btn-primary">Ver detalles</a>
                             <a th:href="@{'/audifonos/edit/' + ${audifono.id}}" class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i> Editar</a>
                             <a th:href="@{'/audifonos/delete/' + ${audifono.id}}" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i> Eliminar</a>
                             <a th:href="@{'/audifonos/agregarCarrito/' + ${audifono.id}}" class="btn btn-sm btn-outline-success"><i class="fas fa-shopping-cart"></i> Agregar al carrito</a>
                         </div>
-                        <span class="text-muted" th:text="${'$' + audifono.precio}">Precio</span>
                     </div>
                 </div>
             </div>

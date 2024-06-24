@@ -1,5 +1,6 @@
 package com.registro.usuarios.controlador;
 
+import com.registro.usuarios.modelo.Audifonos;
 import com.registro.usuarios.modelo.Celular;
 import com.registro.usuarios.servicio.CelularService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,6 +96,12 @@ public class CelularViewController {
             redirectAttributes.addFlashAttribute("error", "Ocurrió un error al eliminar el celular. Por favor, inténtelo de nuevo más tarde.");
         }
         return "redirect:/celulares";
+    }
+    @GetMapping("/{id}")
+    public String getCelularDetalles(@PathVariable Long id, Model model) {
+        Celular celular = celularService.findById(id);
+        model.addAttribute("celular", celular);
+        return "celulares-detalles";
     }
 
 }

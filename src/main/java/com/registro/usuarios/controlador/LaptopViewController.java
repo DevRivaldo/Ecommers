@@ -1,5 +1,6 @@
 package com.registro.usuarios.controlador;
 
+import com.registro.usuarios.modelo.Celular;
 import com.registro.usuarios.modelo.Laptop;
 import com.registro.usuarios.servicio.LaptopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,4 +89,12 @@ public class LaptopViewController {
         }
         return "redirect:/laptops";
     }
+
+    @GetMapping("/{id}")
+    public String getLaptopDetalles(@PathVariable Long id, Model model) {
+        Laptop laptop = laptopService.findById(id);
+        model.addAttribute("laptop", laptop);
+        return "laptops-detalles";
+    }
+
 }
