@@ -89,7 +89,7 @@
         <!-- Repetir para cada laptop -->
         <div class="col-md-4 mb-4" th:each="laptop : ${laptops}">
             <div class="card shadow-sm">
-                <img th:src="@{'/img/default-laptop.jpg'}" class="card-img-top" alt="Imagen Laptop">
+                <img th:src="@{/img/{imagenUrl}(imagenUrl=${laptop.imagenUrl})}" class="card-img-top" alt="Imagen Laptop">
                 <div class="card-body">
                     <h5 class="card-title" th:text="${laptop.marca}">Marca Laptop</h5>
                     <p class="card-text" th:text="${laptop.modelo}">Modelo de la laptop</p>

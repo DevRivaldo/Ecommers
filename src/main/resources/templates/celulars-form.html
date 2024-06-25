@@ -17,7 +17,7 @@
           <th:block th:unless="${celular.id}">Crear Nuevo Celular</th:block>
         </h5>
         <div class="card-body">
-          <form th:action="@{/celulares/edit/{id}(id=${celular.id})}" th:object="${celular}" method="post">
+          <form th:action="@{/celulares}" th:object="${celular}" method="post" enctype="multipart/form-data">
             <input type="hidden" th:field="*{id}">
             <div class="form-group">
               <label for="marca">Marca:</label>
@@ -32,8 +32,13 @@
               <input type="number" class="form-control" id="precio" th:field="*{precio}" step="0.01" min="0" required>
             </div>
             <div class="form-group">
-              <label for="imagen">Imagen:</label>
-              <input type="file" class="form-control-file" id="imagen" name="imagen">
+              <label for="archivo">Imagen:</label>
+              <input type="file" class="form-control-file" id="archivo" name="archivo">
+              <small class="form-text text-muted">Formatos permitidos: JPG, JPEG, PNG, GIF. Tamaño máximo: 15MB.</small>
+              <!-- Manejo de errores de imagen -->
+              <div th:if="${errorImagenMsg}" class="alert alert-danger mt-2">
+                <span th:text="${errorImagenMsg}"></span>
+              </div>
             </div>
 
             <button type="submit" class="btn btn-primary">Guardar</button>

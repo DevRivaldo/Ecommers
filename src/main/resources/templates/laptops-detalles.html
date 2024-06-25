@@ -53,7 +53,8 @@
     <!-- Columna para la imagen del celular -->
     <div class="col-md-6 mb-4 mb-md-0">
       <div class="image-section">
-        <img th:src="@{/images/{imagen}(imagen=${laptop.imagenUrl})}" class="product-image" alt="Imagen del Laptop">
+        <!-- Suponiendo que audifono es el objeto Audifonos que estás iterando -->
+        <img th:src="@{/img/} + ${laptop.imagenUrl}" class="card-img-top" alt="Imagen del Laptop">
       </div>
     </div>
 

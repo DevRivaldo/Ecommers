@@ -88,7 +88,7 @@
         <!-- Repetir para cada celular -->
         <div class="col-md-4 mb-4" th:each="celular : ${celulares}">
             <div class="card shadow-sm">
-                <img th:src="@{'/img/default-phone.jpg'}" class="card-img-top" alt="Imagen Celular">
+                <img th:src="@{/img/{imagenUrl}(imagenUrl=${celular.imagenUrl})}" class="card-img-top" alt="Imagen Celular">
                 <div class="card-body">
                     <h5 class="card-title" th:text="${celular.marca}">Marca Celular</h5>
                     <p class="card-text" th:text="${celular.modelo}">Modelo del celular</p>
@@ -104,7 +104,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Fin del bloque repetido -->
     </div>
 </div>

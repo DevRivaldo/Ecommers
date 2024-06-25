@@ -93,8 +93,10 @@
     <div class="row">
         <!-- Repetir para cada audífono -->
         <div class="col-md-4 mb-4" th:each="audifono : ${audifonos}">
+            <!-- Dentro de tu vista HTML -->
             <div class="card shadow-sm">
-                <img th:src="@{'/img/default-headphones.jpg'}" class="card-img-top" alt="Imagen Audífono">
+                <!-- Suponiendo que audifono es el objeto Audifonos que estás iterando -->
+                <img th:src="@{/img/} + ${audifono.imagenUrl}" class="card-img-top" alt="Imagen Audífono">
                 <div class="card-body">
                     <h5 class="card-title" th:text="${audifono.nombre}">Nombre Audífono</h5>
                     <span class="price" th:text="${'$' + audifono.precio}">Precio</span>
@@ -110,6 +112,8 @@
                 </div>
             </div>
         </div>
+        <!-- Fin del bloque repetido -->
+
         <!-- Fin del bloque repetido -->
     </div>
 </div>

@@ -13,11 +13,11 @@
     <div class="col-md-8">
       <div class="card">
         <h5 class="card-header">
-          <th:block th:if="${audifono.id}">Editar Audífonos</th:block>
-          <th:block th:unless="${audifono.id}">Crear Nuevo Audífonos</th:block>
+          <span th:if="${audifono.id}">Editar Audífonos</span>
+          <span th:unless="${audifono.id}">Crear Nuevo Audífonos</span>
         </h5>
         <div class="card-body">
-          <form th:action="@{/audifonos/edit/{id}(id=${audifono.id})}" th:object="${audifono}" method="post">
+          <form th:action="@{/audifonos}" th:object="${audifono}" method="post" enctype="multipart/form-data">
             <input type="hidden" th:field="*{id}">
             <div class="form-group">
               <label for="nombre">Nombre:</label>
@@ -34,6 +34,15 @@
             <div class="form-group">
               <label for="marca">Marca:</label>
               <input type="text" class="form-control" id="marca" th:field="*{marca}" required>
+            </div>
+            <div class="form-group">
+              <label for="archivo">Imagen:</label>
+              <input type="file" class="form-control-file" id="archivo" name="archivo">
+              <small class="form-text text-muted">Formatos permitidos: JPG, JPEG, PNG, GIF. Tamaño máximo: 15MB.</small>
+              <!-- Manejo de errores de imagen -->
+              <div th:if="${errorImagenMsg}" class="alert alert-danger mt-2">
+                <span th:text="${errorImagenMsg}"></span>
+              </div>
             </div>
             <button type="submit" class="btn btn-primary">Guardar</button>
             <a th:href="@{/audifonos}" class="btn btn-secondary ml-2">Cancelar</a>

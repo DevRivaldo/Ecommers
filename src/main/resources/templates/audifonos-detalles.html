@@ -14,8 +14,8 @@
             background-color: #ffffff;
             color: #343a40;
         }
-        .container{
-        margin-top: 50px;
+        .container {
+            margin-top: 50px;
         }
         .product-image {
             width: 100%;
@@ -57,7 +57,8 @@
     <div class="product-container">
         <div class="row">
             <div class="col-md-6">
-                <img th:src="@{/images/{imagen}(imagen=${audifono.imagenUrl})}" class="product-image" alt="Imagen del Audífono">
+                <!-- Suponiendo que audifono es el objeto Audifonos que estás iterando -->
+                <img th:src="@{/img/} + ${audifono.imagenUrl}" class="card-img-top" alt="Imagen Audífono">
             </div>
             <div class="col-md-6">
                 <div class="product-details">
